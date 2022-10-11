@@ -4,8 +4,8 @@ class Board
     end
 
     # Can probably kill these two methods
-    def [] (arr)
-        @grid[arr[0]][arr[1]]
+    def [] (pos)
+        @grid[pos[0]][pos[1]]
     end
 
     def []=(pos, value)
@@ -18,7 +18,7 @@ class Board
 
     def empty?(pos)
         row, col = pos
-        @grid[row][col] == '_'
+        self[pos] == '_'
     end
 
     def place_mark(pos, player_symbol)
@@ -27,7 +27,7 @@ class Board
         end
 
         row, col = pos
-        @grid[row][col] = player_symbol
+        self[pos] = player_symbol
     end
 
     def win_row?(mark)

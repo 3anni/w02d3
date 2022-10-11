@@ -30,7 +30,8 @@ class Game
 
             # Check if that user has won. If so, print out a 'victory' message saying who won and return to end the game
             if @board.win?(@current_player.mark)
-                puts "victory to" + @current_player.mark.to_s
+                print "victory to"
+                puts @current_player.mark
                 return
             else
                 switch_turn
