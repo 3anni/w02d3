@@ -1,14 +1,23 @@
 require_relative "./board.rb"
 require_relative "./human_player.rb"
+require_relative "./computer_player.rb"
 
 class Game
 
-    def initialize(board_size, *player_marks)
+    def initialize(board_size, opts  = {}) # You may need *opts here instead
         @board = Board.new(board_size)
 
         @players = []
-        player_marks.each do |player_mark|
-            @players.push(HumanPlayer.new(player_mark))
+        opts.each do |player_mark, player_type| # CHANGEEEEEEEEEEEEE
+            puts "player_mark"
+            puts player_mark
+            puts "player_type"
+            puts player_type
+            if player_type == false
+                @players.push(HumanPlayer.new(player_mark)) # CHANGEEEEEEEEEEEEE
+            else
+                @players.push(ComputerPlayer.new(player_mark))
+            end
         end
 
         @current_player = @players[0] # should this instead be just the number 0
@@ -24,7 +33,7 @@ class Game
             @board.print
 
             # Get a position from the current player
-            pos = @current_player.get_position
+            pos = @current_player.get_position(@board.legal_positions)
 
             # Place their mark at that position of the board
             @board.place_mark(pos, @current_player.mark)

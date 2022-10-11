@@ -104,6 +104,20 @@ class Board
 
         false
     end
+
+    def legal_positions
+        legal_pos = []
+
+        (0...@grid.length).each do |i|
+            (0...@grid.length).each do |j|
+                if @grid[i][j] == '_'
+                    legal_pos.push([i, j])
+                end
+            end
+        end
+
+        legal_pos
+    end
 end
 
 # b = Board.new(4)
