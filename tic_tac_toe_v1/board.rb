@@ -31,35 +31,32 @@ class Board
     end
 
     def win_row?(mark)
-        # Check Rows
+        row_won = false
+
         @grid.each do |row|
-            if row.uniq == [mark]
-                print mark
-                puts " wins"
-                return true
-            end
+            row_won = row.all? {|el| el == mark} if !row_won
         end
 
-        false
+        row_won
     end
 
     def win_col?(mark)
-        transposed_board = @grid.transpose
-        transposed_board.each do |col|
-            if col.uniq == [mark]
-                print mark
-                puts " wins"
-                return true
-            end
+        transposed_grid = @grid.transpose
+
+        row_won = false
+
+        transposed_grid.each do |row|
+            row_won = row.all? {|el| el == mark} if !row_won
         end
 
-        false
+        row_won
     end
 
     def win_diagonal?(mark)
         left_diag = []
         right_diag = []
 
+        # Fill left_diag and right_diag arrays with values in the diagonals
         (0...@grid.length).each do |i|
             row = i
             col = @grid.length - i - 1
@@ -68,12 +65,14 @@ class Board
             right_diag << @grid[row][row]
         end
 
-        puts right_diag.uniq
-        puts mark
 
-        if left_diag.uniq == [mark] || right_diag.uniq == [mark]
-            print mark
-            puts " wins"
+        # Check to see if either diagonal is filled with the mark
+        # Simplify this!
+        if (left_diag.uniq.length == 1 &&
+            left_diag.uniq[0] == mark) ||
+            (right_diag.uniq.length == 1 &&
+                right_diag.uniq[0] == mark)
+
             return true
         end
 
@@ -106,3 +105,19 @@ class Board
         false
     end
 end
+
+# b = Board.new
+# b.place_mark([0, 0], :Y)
+# b.place_mark([1, 1], :Y)
+# b.place_mark([2, 2], :Y)
+
+# b.print
+# p b.win_row?(:X)
+# p b.win_row?(:Y)
+# p b.win_col?(:X)
+# p b.win_col?(:Y)
+# p b.win_diagonal?(:X)
+# p b.win_diagonal?(:Y)
+
+# p b.win?(:X)
+# p b.win?(:Y)
