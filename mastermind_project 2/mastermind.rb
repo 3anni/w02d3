@@ -1,8 +1,8 @@
 require_relative "./code.rb"
 
 class Mastermind
-    def initialize(length)
-        @secret_code = Code.random(length)
+    def initialize
+        @secret_code = Code.random(4)
     end
 
     def print_matches(code)
